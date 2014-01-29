@@ -232,8 +232,13 @@ LDLIBS += $(GL_LDLIBS)
 # test for presence of SDL
 ifeq ($(origin SDL_CFLAGS) $(origin SDL_LDLIBS), undefined undefined)
   SDL_CONFIG = $(CROSS_COMPILE)sdl-config
+  SDL2_CONFIG = $(CROSS_COMPILE)sdl2-config
   ifeq ($(shell which $(SDL_CONFIG) 2>/dev/null),)
-    $(error No SDL development libraries found!)
+    ifeq ($(shell which $(SDL2_CONFIG) 2>/dev/null),)
+        $(error No SDL development libraries found!)
+    else
+        SDL_CONFIG = $(SDL2_CONFIG)
+    endif
   endif
   SDL_CFLAGS  += $(shell $(SDL_CONFIG) --cflags)
   SDL_LDLIBS += $(shell $(SDL_CONFIG) --libs)
