@@ -250,7 +250,7 @@ LDLIBS += $(SDL_LDLIBS)
 ifneq ("$(APIDIR)","")
   CFLAGS += "-I$(APIDIR)"
 else
-  TRYDIR = ../core/src/api
+  TRYDIR = ../../../mupen64plus-core/src/api
   ifneq ("$(wildcard $(TRYDIR)/m64p_types.h)","")
     CFLAGS += -I$(TRYDIR)
   else
