@@ -115,8 +115,13 @@ ifneq ("$(filter arm%,$(HOST_CPU))","")
 	CFLAGS += -I/opt/vc/include/
 	CFLAGS += -I/opt/vc/include/interface/vcos/pthreads/
 
-	CFLAGS += -mcpu=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard
-	CFLAGS +=  -D__CRC_OPT -D_HASHMAP_OPT -D__TRIBUFFER_OPT -D__VEC4_OPT -DARM -DUSE_SDL
+	ifeq ($(NEON), 1)
+	 	CFLAGS += -mfpu=neon -mfloat-abi=hard -DNEON
+		CFLAGS +=  -D__CRC_OPT -D_HASHMAP_OPT -D__TRIBUFFER_OPT -D__VEC4_OPT -DARM -DUSE_SDL
+	else
+	 	CFLAGS += -mcpu=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard
+		CFLAGS +=  -D__CRC_OPT -D_HASHMAP_OPT -D__TRIBUFFER_OPT -D__VEC4_OPT -DARM -DUSE_SDL
+	endif
     $(warning Architecture "$(HOST_CPU)" not officially supported.')
   endif
 endif
