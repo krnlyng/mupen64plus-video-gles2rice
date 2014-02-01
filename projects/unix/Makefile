@@ -335,7 +335,6 @@ SOURCE = \
 	$(SRCDIR)/OGLExtCombiner.cpp \
 	$(SRCDIR)/OGLExtensions.cpp \
 	$(SRCDIR)/OGLExtRender.cpp \
-	$(SRCDIR)/OGLFragmentShaders.cpp \
 	$(SRCDIR)/OGLGraphicsContext.cpp \
 	$(SRCDIR)/OGLRender.cpp \
 	$(SRCDIR)/OGLRenderExt.cpp \
@@ -354,6 +353,14 @@ SOURCE = \
 	$(SRCDIR)/TextureManager.cpp \
 	$(SRCDIR)/VectorMath.cpp \
 	$(SRCDIR)/Video.cpp
+
+ifeq ($(USE_GLES), 1)
+SOURCE += \
+	$(SRCDIR)/OGLES2FragmentShaders.cpp
+else
+SOURCE += \
+	$(SRCDIR)/OGLFragmentShaders.cpp
+endif
 
 ifeq ($(OS),MINGW)
 SOURCE += \
